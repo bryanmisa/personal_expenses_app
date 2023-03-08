@@ -7,7 +7,10 @@ class NewTransaction extends StatelessWidget {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
-  // class constructor
+  // Class constructor passes the addTx function
+  // submitData function will be performing the passing of data to the
+  // addTx function to be uplifted to UserTransanctions class which holds two
+  // parameters String txTitle, double txAmount
   NewTransaction(this.addTx);
 
   void submitData() {
