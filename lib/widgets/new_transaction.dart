@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   // addTx Function will be used to pass the new transaction
   // to the UserTransactions
   final Function addTx;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
 
-  // Class constructor passes the addTx function
-  // submitData function will be performing the passing of data to the
-  // addTx function to be uplifted to UserTransanctions class which holds two
-  // parameters String txTitle, double txAmount
   NewTransaction(this.addTx);
+
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
+
+// this class is a different class which called State Class
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void submitData() {
     final enteredTitle = titleController.text;
@@ -21,10 +25,15 @@ class NewTransaction extends StatelessWidget {
       return;
     }
 
-    addTx(
+    // widgetdot accesses the widget class instead of the state class
+    widget.addTx(
       enteredTitle,
       enteredAmount,
     );
+
+    // Navigator will automatically close the modalsheet
+    // context gives you access on the context of the widget
+    Navigator.of(context).pop();
   }
 
   @override
@@ -57,7 +66,7 @@ class NewTransaction extends StatelessWidget {
               // onChanged : (val) => amountInput = val,
             ),
             TextButton(
-              onPressed: () => submitData,
+              onPressed: () => submitData(),
               child: Text('Add Transaction'),
             ),
           ],
